@@ -1,1 +1,8 @@
-
+pandas
+requests
+matplotlib
+seaborn
+plotly
+geopandas
+pycountry
+jupyter
