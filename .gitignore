@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv/
+
+# Data
+data/raw/*
+data/clean/*
+data/processed/*
+
+# Keep folders
+!data/raw/.gitkeep
+!data/clean/.gitkeep
+!data/processed/.gitkeep
+
+# Mac
+.DS_Store
