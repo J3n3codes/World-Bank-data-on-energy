@@ -17,9 +17,21 @@ START_YEAR = 2000
 END_YEAR = 2025
 
 INDICATORS = {
-    "electricity_access": "EG.ELC.ACCS.ZS",
     "gdp_per_capita": "NY.GDP.PCAP.CD",
     "population": "SP.POP.TOTL",
+    "electricity_access": "EG.ELC.ACCS.ZS",
+    "internet_users": "IT.NET.USER.ZS",
+    "life_expectancy": "SP.DYN.LE00.IN",
+    "renewable_energy": "EG.FEC.RNEW.ZS",
+    "urban_population_percent": "SP.URB.TOTL.IN.ZS",
+    "infant_mortality": "SP.DYN.IMRT.IN",
+    "mobile_subscriptions": "IT.CEL.SETS.P2",
+    "secondary_enrollment": "SE.SEC.ENRR",
+    "smoking_male": "SH.PRV.SMOK.MA",
+    "smoking_female": "SH.PRV.SMOK.FE",
+    "alcohol_consumption": "SH.ALC.PCAP.LI",
+    "drinking_water_access": "SH.H2O.BASW.ZS",
+    "diabetes_prevalence": "SH.STA.DIAB.ZS",
 }
 
 

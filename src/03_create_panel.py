@@ -1,4 +1,5 @@
 from pathlib import Path
+from functools import reduce
 import pandas as pd
 
 CLEAN_DATA_DIR = Path("data/clean")
@@ -9,102 +10,69 @@ PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def load_indicator_file(file_path):
+    indicator_name = file_path.stem
+
+    df = pd.read_csv(file_path)
+
+    df = df[
+        ["country_name", "country_code", "year", "value"]
+    ]
+
+    df = df.rename(
+        columns={"value": indicator_name}
+    )
+
+    return df
+
+
 def main():
+    clean_files = sorted(CLEAN_DATA_DIR.glob("*.csv"))
 
-    population = pd.read_csv(
-        CLEAN_DATA_DIR / "population.csv"
-    )
+    datasets = []
 
-    gdp = pd.read_csv(
-        CLEAN_DATA_DIR / "gdp_per_capita.csv"
-    )
+    for file_path in clean_files:
+        df = load_indicator_file(file_path)
+        datasets.append(df)
+        print(f"Loaded: {file_path.name}")
 
-    electricity = pd.read_csv(
-        CLEAN_DATA_DIR / "electricity_access.csv"
-    )
-
-    population = population.rename(
-        columns={"value": "population"}
-    )
-
-    gdp = gdp.rename(
-        columns={"value": "gdp_per_capita"}
-    )
-
-    electricity = electricity.rename(
-        columns={"value": "electricity_access"}
-    )
-
-    population = population[
-        ["country_name", "country_code", "year", "population"]
-    ]
-
-    gdp = gdp[
-        ["country_name", "country_code", "year", "gdp_per_capita"]
-    ]
-
-    electricity = electricity[
-        ["country_name", "country_code", "year", "electricity_access"]
-    ]
-
-    panel = population.merge(
-        gdp,
-        on=["country_name", "country_code", "year"],
-        how="outer"
-    )
-
-    panel = panel.merge(
-        electricity,
-        on=["country_name", "country_code", "year"],
-        how="outer"
+    panel = reduce(
+        lambda left, right: pd.merge(
+            left,
+            right,
+            on=["country_name", "country_code", "year"],
+            how="outer"
+        ),
+        datasets
     )
 
     panel = panel.sort_values(
         ["country_name", "year"]
     )
 
-    output_file = (
-        PROCESSED_DATA_DIR /
-        "world_bank_panel.csv"
-    )
-
+    output_file = PROCESSED_DATA_DIR / "world_bank_panel.csv"
     panel.to_csv(output_file, index=False)
 
-    audit_report = pd.DataFrame({
-        "Metric": [
-            "Rows",
-            "Columns",
-            "Countries",
-            "Years",
-            "Missing Country Codes",
-            "Missing Population",
-            "Missing GDP Per Capita",
-            "Missing Electricity Access"
-        ],
-        "Value": [
-            len(panel),
-            len(panel.columns),
-            panel["country_name"].nunique(),
-            panel["year"].nunique(),
-            panel["country_code"].isna().sum(),
-            panel["population"].isna().sum(),
-            panel["gdp_per_capita"].isna().sum(),
-            panel["electricity_access"].isna().sum()
-        ]
+    missing_report = pd.DataFrame({
+        "column": panel.columns,
+        "missing_count": panel.isna().sum().values,
+        "missing_percent": (panel.isna().mean() * 100).round(2).values
     })
 
-    audit_report.to_csv(
+    missing_report.to_csv(
         OUTPUT_DIR / "panel_quality_report.csv",
         index=False
     )
 
+    print("\nPanel preview:")
     print(panel.head())
 
     print("\nShape:")
     print(panel.shape)
 
-    print(f"\nSaved: {output_file}")
-    print("Saved: outputs/tables/panel_quality_report.csv")
+    print("\nSaved:")
+    print(output_file)
+    print(OUTPUT_DIR / "panel_quality_report.csv")
 
 
 if __name__ == "__main__":
