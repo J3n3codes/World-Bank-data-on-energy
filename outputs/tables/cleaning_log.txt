@@ -1,0 +1,9 @@
+Cleaning Log
+====================
+
+Raw files were preserved and not modified.
+Clean copies were saved in data/clean/.
+Missing values were retained as pandas NaN.
+No rows were deleted.
+Aggregate groups were retained for now.
+Rows were sorted by country_name and year.

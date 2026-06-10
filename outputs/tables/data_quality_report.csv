@@ -1,0 +1,4 @@
+dataset,rows,columns,countries,missing_country_code,missing_value,percent_missing_value
+population.csv,6916,6,266,130,291,4.21
+gdp_per_capita.csv,6916,6,266,130,483,6.98
+electricity_access.csv,6916,6,266,130,629,9.09
