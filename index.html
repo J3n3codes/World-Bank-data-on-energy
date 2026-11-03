@@ -1,0 +1,1031 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Electricity Access & Development | Research Project</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Added map & charts -->
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#home">WORLD BANK <span>/ DATA STORY</span></a>
+    <nav class="navlinks">
+      <a href="#map">Global map</a>
+      <a href="#question">Research</a>
+      <a href="#method">Method</a>
+      <a href="#findings">Findings</a>
+      <a href="#dashboard" class="nav-cta">Explore dashboard ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="eyebrow">Applied data science · World Development Indicators</div>
+
+    <h1>Electricity access &<br><em>economic development</em></h1>
+
+    <p>
+      A country-year view of global development indicators, exploring
+      how access to electricity relates to income, health, education,
+      infrastructure and digital connectivity.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn btn-light" href="#map">Explore the global map ↓</a>
+      <a class="btn btn-outline" href="#dashboard">Explore the dashboard</a>
+      <a class="btn btn-outline" href="report.pdf" download>
+        ↓ Download PDF report
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <div><strong>2000–2023</strong>Years</div>
+      <div><strong>15</strong>World Bank indicators</div>
+      <div><strong>6,916</strong>Country/entity-year rows</div>
+      <div><strong>261</strong>Unique non-null country codes</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORLD MAP VISUALIZATION -->
+
+<section class="map-section" id="map">
+  <div class="wrap">
+
+    <div class="section-kicker">GLOBAL PERSPECTIVE / 01</div>
+    <h2>Electricity access across the world</h2>
+
+    <p class="lead">
+      How does access to electricity vary geographically?
+      Explore the distribution of electricity access across countries
+      using the World Bank's 2023 indicator data.
+    </p>
+
+    <div class="map-shell">
+      <div class="map-heading">
+        <h3>Global electricity access · 2023</h3>
+        <p>Percentage of population with access to electricity</p>
+      </div>
+
+      <div id="worldMap">
+        <p style="padding:30px;color:#60747a">
+          Loading World Bank country-level data...
+        </p>
+      </div>
+
+      <div class="map-footnote">
+        Source: World Bank World Development Indicators,
+        EG.ELC.ACCS.ZS. Map represents 2023 only;
+        the wider research analysis covers 2000–2023.
+        Countries with unavailable observations are not assigned zero.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESEARCH QUESTION OF INTEREST -->
+
+<section class="section" id="question">
+  <div class="wrap intro-grid">
+
+    <div>
+      <div class="section-kicker">02 / Research question</div>
+      <h2>What does access to electricity reveal about development?</h2>
+
+      <p class="lead">
+        The central analysis examines the association between GDP per
+        capita and electricity access across countries and years.
+        A broader set of indicators adds context on health, education,
+        infrastructure and the energy transition.
+      </p>
+    </div>
+
+    <div class="question-card">
+      <div class="label">Central question</div>
+      <p>
+        How is electricity access associated with economic development
+        across countries, and how does this relationship vary over time?
+      </p>
+    </div>
+
+  </div>
+
+  <div class="wrap stat-grid">
+    <div class="stat"><strong>15</strong><span>Indicators collected</span></div>
+    <div class="stat"><strong>24</strong><span>Calendar years in scope</span></div>
+    <div class="stat"><strong>6,786</strong><span>Country-level rows</span></div>
+    <div class="stat"><strong>130</strong><span>Aggregate rows retained</span></div>
+  </div>
+</section>
+
+<!-- DATA  -->
+
+<section class="section" id="journey">
+  <div class="wrap">
+
+    <div class="section-kicker">03 / Research journey</div>
+    <h2>From raw indicators to interpretable evidence</h2>
+
+    <p class="lead">
+      A reproducible pipeline was built in Python. Each stage preserves
+      the source data while creating auditable intermediate datasets
+      and analytical outputs.
+    </p>
+
+    <div class="steps">
+
+      <article class="step">
+        <div class="step-num">STAGE 01</div>
+        <h3>Data collection</h3>
+        <p>
+          Retrieved 15 World Bank World Development Indicators through
+          the API for 2000–2023. Each series was saved separately
+          in its raw CSV file.
+        </p>
+        <div class="micro">Output · data/raw/</div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">STAGE 02</div>
+        <h3>Data cleaning</h3>
+        <p>
+          Standardized column names, sorted country-year records and
+          created clean copies. Raw files were preserved; missing
+          values were retained as NaN.
+        </p>
+        <div class="micro">Output · data/clean/</div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">STAGE 03</div>
+        <h3>Panel construction</h3>
+        <p>
+          Combined the 15 indicator files using outer joins on
+          country name, country code and year, retaining records
+          when some indicators were unavailable.
+        </p>
+        <div class="micro">Output · world_bank_panel.csv</div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">STAGE 04</div>
+        <h3>Quality assessment</h3>
+        <p>
+          Reviewed dimensions, data types, missingness, entity
+          coverage and key uniqueness. Built a 10-indicator
+          analytical subset for focused analyses.
+        </p>
+        <div class="micro">Output · quality reports + analysis panel</div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">STAGE 05</div>
+        <h3>Statistical analysis</h3>
+        <p>
+          Conducted univariable summaries, Pearson and Spearman
+          correlations, selected scatterplots, yearly comparisons
+          and country-clustered panel regressions.
+        </p>
+        <div class="micro">Output · tables + model estimates</div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">STAGE 06</div>
+        <h3>Visualization & interpretation</h3>
+        <p>
+          Created correlation heatmaps, scatterplot grids,
+          coefficient plots and regional comparisons to
+          communicate patterns and analytical limitations.
+        </p>
+        <div class="micro">Output · figures + dashboard</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+
+<section class="section" id="method">
+  <div class="wrap">
+
+    <div class="section-kicker">04 / Data & methods</div>
+    <h2>One integrated panel, multiple analytical lenses</h2>
+
+    <p class="lead">
+      The full panel retains all 15 indicators. Country-level analyses
+      exclude aggregate entities with missing country codes; missing
+      indicator values are handled within each analysis rather than
+      deleting entire rows globally.
+    </p>
+
+    <div class="method-grid">
+
+      <article class="method">
+        <h3>Data architecture</h3>
+        <ul>
+          <li>Full panel: 6,916 rows × 18 columns.</li>
+          <li>Analytical subset: 6,916 rows × 13 columns.</li>
+          <li>261 unique non-null country codes and 130 aggregate rows.</li>
+          <li>Country-level and aggregate country-year keys were separately validated: zero duplicates.</li>
+        </ul>
+      </article>
+
+      <article class="method">
+        <h3>Descriptive & bivariate analysis</h3>
+        <ul>
+          <li>Univariable statistics and indicator-level missingness.</li>
+          <li>Pearson correlation for linear association.</li>
+          <li>Spearman rank correlation for monotonic association.</li>
+          <li>Pairwise sample sizes reported because coverage differs by indicator.</li>
+        </ul>
+      </article>
+
+      <article class="method">
+        <h3>Panel inference</h3>
+        <ul>
+          <li>Pooled OLS with country-clustered standard errors.</li>
+          <li>Country and year fixed effects with country-clustered standard errors.</li>
+          <li>Seven selected relationships estimated under both specifications.</li>
+          <li>Fixed effects account for time-invariant country differences and common year effects.</li>
+        </ul>
+      </article>
+
+      <article class="method">
+        <h3>Regional analysis</h3>
+        <ul>
+          <li>World Bank region and income metadata joined to the analytical panel.</li>
+          <li>Yearly and overall electricity–life expectancy summaries.</li>
+          <li>Aggregate entities and records without region excluded from regional comparisons.</li>
+          <li>Small regional country counts are explicitly treated with caution.</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <div class="callout">
+      <strong>Interpretation boundary.</strong>
+      These are observational associations, not causal effects.
+      Repeated country-year observations require care with dependence;
+      country-clustered standard errors address within-country
+      dependence, but do not eliminate time-varying confounding
+      or cross-country dependence.
+    </div>
+
+  </div>
+</section>
+
+<!-- INDICATORS OF INTEREST -->
+
+<section class="section" id="indicators">
+  <div class="wrap">
+
+    <div class="section-kicker">05 / Indicator coverage</div>
+    <h2>Fifteen indicators, one broader development picture</h2>
+
+    <p class="lead">
+      The core question is supported by economic, infrastructure
+      and social indicators. Coverage varies substantially, so
+      each result should be read with its own sample size.
+    </p>
+
+    <div class="indicator-grid">
+
+      <div class="indicator"><b>GDP per capita</b><small>Current US$</small><div class="code">NY.GDP.PCAP.CD</div></div>
+      <div class="indicator"><b>Population</b><small>People</small><div class="code">SP.POP.TOTL</div></div>
+      <div class="indicator"><b>Electricity access</b><small>% of population</small><div class="code">EG.ELC.ACCS.ZS</div></div>
+      <div class="indicator"><b>Internet users</b><small>% of population</small><div class="code">IT.NET.USER.ZS</div></div>
+      <div class="indicator"><b>Life expectancy</b><small>Years at birth</small><div class="code">SP.DYN.LE00.IN</div></div>
+      <div class="indicator"><b>Renewable energy</b><small>% final energy consumption</small><div class="code">EG.FEC.RNEW.ZS</div></div>
+      <div class="indicator"><b>Urban population</b><small>% of population</small><div class="code">SP.URB.TOTL.IN.ZS</div></div>
+      <div class="indicator"><b>Infant mortality</b><small>Deaths per 1,000 live births</small><div class="code">SP.DYN.IMRT.IN</div></div>
+      <div class="indicator"><b>Mobile subscriptions</b><small>Per 100 people</small><div class="code">IT.CEL.SETS.P2</div></div>
+      <div class="indicator"><b>Secondary enrollment</b><small>Gross enrollment ratio (%)</small><div class="code">SE.SEC.ENRR</div></div>
+      <div class="indicator"><b>Smoking prevalence · male</b><small>% of adult males</small><div class="code">SH.PRV.SMOK.MA</div></div>
+      <div class="indicator"><b>Smoking prevalence · female</b><small>% of adult females</small><div class="code">SH.PRV.SMOK.FE</div></div>
+      <div class="indicator"><b>Alcohol consumption</b><small>Litres of pure alcohol per adult</small><div class="code">SH.ALC.PCAP.LI</div></div>
+      <div class="indicator"><b>Basic drinking water</b><small>% of population</small><div class="code">SH.H2O.BASW.ZS</div></div>
+      <div class="indicator"><b>Diabetes prevalence</b><small>% of adults</small><div class="code">SH.STA.DIAB.ZS</div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINDINGS AND -->
+
+<section class="section" id="findings">
+  <div class="wrap">
+
+    <div class="section-kicker">06 / Selected findings</div>
+    <h2>Patterns are strong—but not uniform</h2>
+
+    <p class="lead">
+      The analysis shows consistent positive associations between
+      electricity access and several development outcomes.
+      The strength and interpretation of those relationships
+      depend on the measure and model.
+    </p>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <strong>+0.384</strong>
+        <span>Pooled Pearson · GDP & electricity</span>
+      </div>
+      <div class="stat">
+        <strong>+0.847</strong>
+        <span>Pooled Spearman · GDP & electricity</span>
+      </div>
+      <div class="stat">
+        <strong>+0.330</strong>
+        <span>Yearly Pearson · 2023</span>
+      </div>
+      <div class="stat">
+        <strong>6,051</strong>
+        <span>Paired country-year observations</span>
+      </div>
+    </div>
+
+    <div class="method-grid">
+
+      <article class="method">
+        <h3>GDP and electricity access</h3>
+        <p>
+          The pooled Pearson correlation is +0.3841, while Spearman
+          is +0.8473. The difference suggests a stronger monotonic
+          than linear relationship in the pooled observations.
+          Yearly Pearson correlations declined from +0.4412 in
+          2000 to +0.3301 in 2023.
+        </p>
+      </article>
+
+      <article class="method">
+        <h3>Within-country estimates</h3>
+        <p>
+          For electricity access and log GDP per capita,
+          the country-and-year fixed-effects estimate is 0.00648.
+          This is a within-country association after accounting
+          for common year effects—not a causal effect.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- INTERACTIVE DASHBOARD AS STATED -->
+
+<section class="dashboard" id="dashboard">
+  <div class="wrap">
+
+    <div class="dash-head">
+      <div>
+        <div class="section-kicker">07 / Interactive dashboard</div>
+        <h2>Explore the evidence</h2>
+        <p class="lead">
+          Switch between the headline relationship, regional
+          patterns, correlations and panel-model estimates.
+        </p>
+      </div>
+
+      <div class="dash-note">
+        <span class="pill">Interactive summary</span>
+        <br><br>
+        Figures below are embedded from the analysis results
+        documented in this project.
+      </div>
+    </div>
+
+    <div class="dash-shell">
+
+      <div class="dash-top">
+        <div>
+          <small>World Bank · 2000–2023</small>
+          <br>
+          <strong>Development indicators explorer</strong>
+        </div>
+        <div style="font-size:11px;color:#c4d7d1">
+          Country-level analysis · aggregates excluded where noted
+        </div>
+      </div>
+
+      <div class="dash-tabs" role="tablist">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="regions">Regional patterns</button>
+        <button class="tab" data-tab="correlations">Correlations</button>
+        <button class="tab" data-tab="models">Panel models</button>
+        <button class="tab" data-tab="missing">Data coverage</button>
+      </div>
+
+      <div class="dash-content" id="dashContent"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FULL CORRELATION ANALYSIS IN SHORT -->
+
+<section class="section" id="correlation-summary">
+  <div class="wrap">
+
+    <div class="section-kicker">08 / Correlation snapshot</div>
+    <h2>Selected associations from the 15-indicator analysis</h2>
+
+    <p class="lead">
+      This compact matrix presents selected high-magnitude
+      relationships, including both Pearson correlation and
+      Spearman rank correlation. It is not a replacement for
+      the full Pearson and Spearman heatmaps.
+    </p>
+
+    <div class="table-scroll">
+      <table class="correlation-table">
+        <thead>
+          <tr>
+            <th>Indicator pair</th>
+            <th>Pearson r</th>
+            <th>Spearman rank ρ</th>
+            <th>Pairwise n</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Life expectancy × infant mortality</td>
+            <td>−0.921</td>
+            <td>−0.937</td>
+            <td>6,000</td>
+          </tr>
+
+          <tr>
+            <td>Electricity access × drinking water access</td>
+            <td>+0.909</td>
+            <td>+0.884</td>
+            <td>6,010</td>
+          </tr>
+
+          <tr>
+            <td>Infant mortality × drinking water access</td>
+            <td>−0.846</td>
+            <td>−0.883</td>
+            <td>5,823</td>
+          </tr>
+
+          <tr>
+            <td>Electricity access × life expectancy</td>
+            <td>+0.830</td>
+            <td>+0.867</td>
+            <td>6,191</td>
+          </tr>
+
+          <tr>
+            <td>GDP per capita × electricity access</td>
+            <td>+0.384</td>
+            <td>+0.847</td>
+            <td>6,051</td>
+          </tr>
+
+          <tr>
+            <td>Internet users × mobile subscriptions</td>
+            <td>+0.752</td>
+            <td>+0.813</td>
+            <td>5,378</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>How to interpret the coefficients.</strong>
+      Pearson's r measures the strength and direction of a linear
+      association. Spearman's ρ measures the strength and direction
+      of a rank-based monotonic association. A difference between
+      the two may indicate nonlinearity, skewed distributions
+      or sensitivity to extreme values. Neither establishes causality.
+    </div>
+
+    <p class="footnote">
+      Pairwise sample sizes vary because indicator availability
+      differs across countries and years. The pooled country-year
+      observations are repeated observations, not independent
+      country-level samples.
+    </p>
+
+  </div>
+</section>
+
+<!-- fINAL REVIEW -->
+
+<section class="takeaway">
+  <div class="wrap takeaway-grid">
+
+    <h2>Access is associated with development. Context matters.</h2>
+
+    <div>
+      <p>
+        The strongest descriptive patterns connect electricity
+        access with health, basic services and digital connectivity.
+        Yet pooled comparisons mix differences between countries
+        with changes within countries. The panel specifications
+        help separate these perspectives, while still stopping
+        short of causal claims.
+      </p>
+
+      <a class="btn btn-light" href="#home">Back to top ↑</a>
+      <a class="btn btn-outline" href="report.pdf" download>
+        Download full PDF report ↓
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap footer">
+  <span>World Bank Development Indicators · Research project</span>
+  <span>Source: World Bank World Development Indicators API · 2000–2023</span>
+</footer>
+
+<script>
+/* =========================================
+   1. WORLD BANK API ON MAP
+========================================= */
+
+async function loadWorldMap() {
+  const mapElement = document.getElementById("worldMap");
+
+  try {
+    const apiURL =
+      "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.ACCS.ZS?date=2023&format=json&per_page=400";
+
+    const response = await fetch(apiURL);
+
+    if (!response.ok) {
+      throw new Error("World Bank API request failed.");
+    }
+
+    const result = await response.json();
+
+    if (!result[1]) {
+      throw new Error("No country data returned.");
+    }
+
+    const observations = result[1].filter(item =>
+      item.value !== null &&
+      item.countryiso3code &&
+      item.countryiso3code.length === 3
+    );
+
+    const locations = observations.map(item => item.countryiso3code);
+    const values = observations.map(item => item.value);
+    const countryNames = observations.map(item => item.country.value);
+
+    const trace = {
+      type: "choropleth",
+      locationmode: "ISO-3",
+      locations: locations,
+      z: values,
+      text: countryNames,
+      customdata: values.map(value => value.toFixed(2) + "%"),
+      colorscale: [
+        [0, "#e8eee9"],
+        [0.25, "#b8d8ca"],
+        [0.5, "#72b6a1"],
+        [0.75, "#268d7e"],
+        [1, "#123743"]
+      ],
+      zmin: 0,
+      zmax: 100,
+      colorbar: {
+        title: "Population<br>with access (%)",
+        ticksuffix: "%",
+        thickness: 14
+      },
+      hovertemplate:
+        "<b>%{text}</b><br>" +
+        "Electricity access: %{z:.2f}%" +
+        "<extra></extra>"
+    };
+
+    const layout = {
+      margin: {t: 10, b: 10, l: 5, r: 5},
+      paper_bgcolor: "#ffffff",
+      plot_bgcolor: "#ffffff",
+      geo: {
+        showframe: false,
+        showcoastlines: true,
+        coastlinecolor: "#ffffff",
+        showland: true,
+        landcolor: "#e5e9e5",
+        showocean: true,
+        oceancolor: "#f5f8f6",
+        projection: {type: "natural earth"},
+        bgcolor: "#ffffff"
+      }
+    };
+
+    Plotly.newPlot(
+      mapElement,
+      [trace],
+      layout,
+      {responsive: true, displayModeBar: false}
+    );
+
+  } catch (error) {
+    mapElement.innerHTML =
+      '<p style="padding:30px;color:#60747a">' +
+      'The interactive map could not load. Please check your internet ' +
+      'connection and reload the page. The underlying analysis and ' +
+      'dashboard remain available.' +
+      '</p>';
+
+    console.error(error);
+  }
+}
+
+loadWorldMap();
+
+
+/* =========================================
+   2. DASHBOARD DATA DISPLAY
+========================================= */
+
+const regional = [
+  {region:'East Asia & Pacific',n:855,c:36,e:84.9124,l:72.0629,p:.550845,s:.775555},
+  {region:'Europe & Central Asia',n:1368,c:57,e:99.6480,l:76.9083,p:.308170,s:.572045},
+  {region:'Latin America & Caribbean',n:1008,c:42,e:93.9241,l:73.4557,p:.693794,s:.597006},
+  {region:'Middle East, North Africa, Afghanistan & Pakistan',n:552,c:23,e:92.2900,l:73.1605,p:.717255,s:.838972},
+  {region:'North America',n:72,c:3,e:100,l:79.6284,p:null,s:null},
+  {region:'South Asia',n:144,c:6,e:78.9514,l:70.4459,p:.814746,s:.851976},
+  {region:'Sub-Saharan Africa',n:1136,c:48,e:40.0577,l:59.0613,p:.629921,s:.606953}
+];
+
+const models = [
+  {label:'Electricity → log GDP per capita',pool:.04000,fe:.006479,n:6051,c:256},
+  {label:'Electricity → life expectancy',pool:.253519,fe:.085706,n:6191,c:259},
+  {label:'Electricity → infant mortality',pool:-.710754,fe:-.435084,n:5711,c:239},
+  {label:'Basic water → infant mortality',pool:-1.1924,fe:-1.067407,n:5823,c:238},
+  {label:'Basic water → life expectancy',pool:.413278,fe:.191358,n:6298,c:258},
+  {label:'Log GDP → secondary enrollment',pool:15.188907,fe:4.794828,n:4572,c:242},
+  {label:'Internet users → mobile subscriptions',pool:1.188336,fe:.403693,n:5378,c:0}
+];
+
+const missing = [
+  ['GDP per capita',6.98],
+  ['Population',4.21],
+  ['Electricity access',9.09],
+  ['Internet users',19.13],
+  ['Life expectancy',4.21],
+  ['Renewable energy',17.44],
+  ['Urban population',4.21],
+  ['Infant mortality',11.80],
+  ['Mobile subscriptions',10.90],
+  ['Secondary enrollment',31.39],
+  ['Smoking · male',75.59],
+  ['Smoking · female',75.59],
+  ['Alcohol consumption',29.16],
+  ['Drinking water access',7.49],
+  ['Diabetes prevalence',92.41]
+];
+
+const corr = [
+  ['Life expectancy × infant mortality',-.920532,-.937,6000],
+  ['Electricity × drinking water',.909047,.884,6010],
+  ['Infant mortality × drinking water',-.846335,-.883,5823],
+  ['Electricity × life expectancy',.829712,.867,6191],
+  ['GDP per capita × electricity',.3841,.8473,6051],
+  ['Internet users × mobile subscriptions',.752,.813,5378]
+];
+
+function fmt(x,d=2) {
+  return x === null ? '—' : Number(x).toFixed(d);
+}
+
+
+/* =========================================
+   3. CHART POINTERS
+========================================= */
+
+function barSvg(items,maxVal) {
+  let w=640;
+  let h=Math.max(230,items.length*31+35);
+  let left=225,right=35,top=10,row=31;
+  let plot=w-left-right;
+
+  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Horizontal bar chart">`;
+
+  [0,.25,.5,.75,1].forEach(t=>{
+    let x=left+t*plot;
+    s+=`<line x1="${x}" y1="${top}" x2="${x}" y2="${h-20}" stroke="#e4e9e5"/>`;
+    s+=`<text x="${x}" y="${h-4}" font-size="10" text-anchor="middle" fill="#718087">${Math.round(t*maxVal)}</text>`;
+  });
+
+  items.forEach((it,i)=>{
+    let y=top+i*row+8;
+    let v=it.value/maxVal*plot;
+
+    s+=`<text x="${left-9}" y="${y+10}" text-anchor="end" font-size="10" fill="#42565c">${it.label}</text>`;
+    s+=`<rect x="${left}" y="${y}" width="${Math.max(1,v)}" height="13" rx="2" fill="${it.color||'#167d78'}"/>`;
+    s+=`<text x="${Math.min(left+v+6,w-25)}" y="${y+10}" font-size="10" fill="#42565c">${fmt(it.value,1)}%</text>`;
+  });
+
+  return s+'</svg>';
+}
+
+function lineSvg() {
+  let pts=[['2000',.4412],['2023',.3301]];
+  let w=600,h=250,L=48,R=18,T=18,B=40,min=.25,max=.5;
+
+  let xy=pts.map((p,i)=>[
+    L+i*(w-L-R)/(pts.length-1),
+    T+(max-p[1])/(max-min)*(h-T-B)
+  ]);
+
+  let path=xy.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' ');
+
+  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Yearly Pearson correlation trend">`;
+
+  [.25,.3,.35,.4,.45,.5].forEach(v=>{
+    let y=T+(max-v)/(max-min)*(h-T-B);
+    s+=`<line x1="${L}" y1="${y}" x2="${w-R}" y2="${y}" stroke="#e5eae6"/>`;
+    s+=`<text x="${L-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#718087">${v.toFixed(2)}</text>`;
+  });
+
+  s+=`<path d="${path}" fill="none" stroke="#167d78" stroke-width="3"/>`;
+
+  xy.forEach((p,i)=>{
+    s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#d59a43"/>`;
+    s+=`<text x="${p[0]}" y="${h-17}" text-anchor="middle" font-size="10" fill="#718087">${pts[i][0]}</text>`;
+  });
+
+  return s+'</svg>';
+}
+
+
+/* =========================================
+   4. DASHBOARD PANEL
+========================================= */
+
+function overviewPanel() {
+  return `
+    <div class="kpis">
+      <div class="kpi"><strong>+0.384</strong><span>Pearson r · GDP × electricity</span></div>
+      <div class="kpi"><strong>+0.847</strong><span>Spearman ρ · GDP × electricity</span></div>
+      <div class="kpi"><strong>6,051</strong><span>Paired observations</span></div>
+      <div class="kpi"><strong>2000–2023</strong><span>Paired data period</span></div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Yearly cross-country association</h3>
+        <p>Electricity access vs GDP per capita · Pearson correlation at the first and last observed years.</p>
+        <div class="chart-area">${lineSvg()}</div>
+        <div class="legend">
+          <span><i class="dot" style="background:#167d78"></i>Observed-year Pearson correlation</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Headline interpretation</h3>
+        <p>What the two correlation measures tell us.</p>
+        <div style="font-family:Georgia,serif;font-size:24px;line-height:1.25;margin:20px 0">
+          A stronger rank-order pattern than linear fit.
+        </div>
+        <p style="font-size:12px;color:#60747a">
+          Pearson r = +0.3841; Spearman ρ = +0.8473.
+          This contrast suggests a stronger monotonic than linear
+          association in the pooled country-year observations.
+        </p>
+        <div class="callout">
+          Correlation is symmetric and observational. It does not
+          establish that increasing electricity access causes
+          higher GDP per capita.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+function regionPanel() {
+  let sorted=[...regional].sort((a,b)=>b.e-a.e);
+
+  return `
+    <div class="kpis">
+      <div class="kpi"><strong>7</strong><span>World Bank regions</span></div>
+      <div class="kpi"><strong>5,135</strong><span>Complete observations</span></div>
+      <div class="kpi"><strong>168</strong><span>Year-region groups</span></div>
+      <div class="kpi"><strong>40.1–99.6%</strong><span>Regional mean electricity range</span></div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Mean electricity access by region</h3>
+        <p>Overall pooled country-year observations, 2000–2023 where available.</p>
+        <div class="chart-area">
+          ${barSvg(sorted.map(x=>({label:x.region,value:x.e})),100)}
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Regional summary</h3>
+        <p>Electricity and life expectancy means, with pooled Pearson association.</p>
+        <div style="overflow-x:auto">
+          <table class="dash-table">
+            <thead>
+              <tr><th>Region</th><th>Countries</th><th>Life exp.</th><th>Pearson r</th></tr>
+            </thead>
+            <tbody>
+              ${regional.map(x=>`
+                <tr>
+                  <td>${x.region}</td>
+                  <td class="num">${x.c}</td>
+                  <td class="num">${fmt(x.l,1)}</td>
+                  <td class="num">${fmt(x.p,3)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="footnote">
+      Regional summaries are pooled country-year observations,
+      not equal-weighted country averages or within-country effects.
+      North America (3 countries) and South Asia (6 countries) have
+      relatively small country counts. North America's electricity
+      access is constant in these observations, so its correlation
+      is undefined.
+    </p>
+  `;
+}
+
+
+function corrPanel() {
+  return `
+    <div class="chart-card">
+      <h3>Pearson and Spearman correlations</h3>
+      <p>Selected high-magnitude relationships across country-level observations.</p>
+
+      <div style="overflow-x:auto">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Indicator pair</th>
+              <th>Pearson r</th>
+              <th>Spearman ρ</th>
+              <th>Pairwise n</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${corr.map(x=>`
+              <tr>
+                <td>${x[0]}</td>
+                <td class="num">${x[1]>0?'+':''}${x[1].toFixed(3)}</td>
+                <td class="num">${x[2]>0?'+':''}${x[2].toFixed(3)}</td>
+                <td class="num">${x[3].toLocaleString('en-US')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="footnote">
+      Pearson captures linear association and Spearman captures
+      rank-based monotonic association. Sample sizes vary by pair;
+      pooled repeated country-year observations are not independent.
+      The coefficients are observational and do not establish causality.
+    </p>
+  `;
+}
+
+
+function modelPanel() {
+  return `
+    <div class="chart-card">
+      <h3>Coefficient comparison</h3>
+      <p>
+        Selected coefficients from pooled OLS and country + year
+        fixed-effects models. Numerical values are in the outcome's
+        units; scales differ by relationship.
+      </p>
+
+      <div style="overflow-x:auto">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Relationship</th>
+              <th>Pooled OLS β</th>
+              <th>Country + year FE β</th>
+              <th>Observations</th>
+              <th>Countries</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${models.map(m=>`
+              <tr>
+                <td>${m.label}</td>
+                <td class="num">${fmt(m.pool,4)}</td>
+                <td class="num">${fmt(m.fe,4)}</td>
+                <td class="num">${m.n.toLocaleString('en-US')}</td>
+                <td class="num">${m.c || '—'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>How to read:</strong>
+      Pooled OLS combines between-country and over-time variation.
+      Country and year fixed effects account for time-invariant
+      country differences and common year effects. Both use
+      country-clustered standard errors. Neither specification
+      establishes causality.
+    </div>
+  `;
+}
+
+
+function missingPanel() {
+  let sorted=[...missing].sort((a,b)=>b[1]-a[1]);
+
+  return `
+    <div class="kpis">
+      <div class="kpi"><strong>15</strong><span>Indicators audited</span></div>
+      <div class="kpi"><strong>6,916</strong><span>Rows in full panel</span></div>
+      <div class="kpi"><strong>92.41%</strong><span>Diabetes missing</span></div>
+      <div class="kpi"><strong>4.21%</strong><span>Population missing</span></div>
+    </div>
+
+    <div class="chart-card" style="margin-top:17px">
+      <h3>Missing observations by indicator</h3>
+      <p>Percentage of rows in the full 6,916-row panel.</p>
+      <div class="chart-area">
+        ${barSvg(sorted.map(x=>({
+          label:x[0],
+          value:x[1],
+          color:x[1]>60?'#c96d59':x[1]>25?'#d59a43':'#167d78'
+        })),100)}
+      </div>
+    </div>
+
+    <p class="footnote">
+      Missing values were retained as NaN. Indicator availability
+      varies by country and year. The analysis period is 2000–2023.
+      Do not interpret missingness as zero.
+    </p>
+  `;
+}
+
+
+/* =========================================
+   5. INTERACT WITH DASHBOARD 
+========================================= */
+
+const renderers = {
+  overview: overviewPanel,
+  regions: regionPanel,
+  correlations: corrPanel,
+  models: modelPanel,
+  missing: missingPanel
+};
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    document.querySelectorAll('.tab').forEach(b =>
+      b.classList.toggle('active', b === btn)
+    );
+
+    document.getElementById('dashContent').innerHTML =
+      renderers[btn.dataset.tab]();
+  });
+});
+
+document.getElementById('dashContent').innerHTML = overviewPanel();
+
+</script>
+
+</body>
+</html>
