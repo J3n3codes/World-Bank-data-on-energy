@@ -1,0 +1,8 @@
+variable_1,variable_2,pearson_r,spearman_r,sample_size
+electricity_access,gdp_per_capita,0.3841085789602815,0.8472737076487499,6051
+electricity_access,life_expectancy,0.8297117568675959,0.8671796214473146,6191
+electricity_access,infant_mortality,-0.8270773632359538,-0.8720895699673179,5711
+drinking_water_access,infant_mortality,-0.846334854934143,-0.8832422231868342,5823
+drinking_water_access,life_expectancy,0.8283440344702708,0.8683796939501943,6298
+gdp_per_capita,secondary_enrollment,0.5265275613752042,0.8137421906323886,4572
+internet_users,mobile_subscriptions,0.7524490034092752,0.8126349556366692,5378

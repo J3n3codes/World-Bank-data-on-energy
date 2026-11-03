@@ -30,7 +30,7 @@ regions = [
     "East Asia & Pacific",
     "Europe & Central Asia",
     "Latin America & Caribbean",
-    "Middle East & North Africa",
+    "Middle East, North Africa, Afghanistan & Pakistan",
     "North America",
     "South Asia",
     "Sub-Saharan Africa"
@@ -40,7 +40,7 @@ colors = {
     "East Asia & Pacific": "#1f77b4",
     "Europe & Central Asia": "#ff7f0e",
     "Latin America & Caribbean": "#2ca02c",
-    "Middle East & North Africa": "#d62728",
+    "Middle East, North Africa, Afghanistan & Pakistan": "#d62728",
     "North America": "#9467bd",
     "South Asia": "#8c564b",
     "Sub-Saharan Africa": "#e377c2"

@@ -1,0 +1,16 @@
+dataset,rows,columns,countries,missing_country_code,missing_value,percent_missing_value
+infant_mortality.csv,6916,6,266,130,816,11.8
+renewable_energy.csv,6916,6,266,130,1206,17.44
+smoking_female.csv,6916,6,266,130,5228,75.59
+diabetes_prevalence.csv,6916,6,266,130,6391,92.41
+population.csv,6916,6,266,130,291,4.21
+alcohol_consumption.csv,6916,6,266,130,2017,29.16
+life_expectancy.csv,6916,6,266,130,291,4.21
+secondary_enrollment.csv,6916,6,266,130,2171,31.39
+internet_users.csv,6916,6,266,130,1323,19.13
+drinking_water_access.csv,6916,6,266,130,518,7.49
+urban_population_percent.csv,6916,6,266,130,291,4.21
+smoking_male.csv,6916,6,266,130,5228,75.59
+gdp_per_capita.csv,6916,6,266,130,483,6.98
+mobile_subscriptions.csv,6916,6,266,130,754,10.9
+electricity_access.csv,6916,6,266,130,629,9.09

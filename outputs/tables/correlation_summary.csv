@@ -1,0 +1,6 @@
+x_variable,y_variable,min,max
+drinking_water_access,life_expectancy,0.775,0.855
+electricity_access,life_expectancy,0.719,0.883
+infant_mortality,life_expectancy,-0.932,-0.89
+internet_users,life_expectancy,0.598,0.875
+mobile_subscriptions,internet_users,0.358,0.837
