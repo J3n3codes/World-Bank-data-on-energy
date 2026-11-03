@@ -1,0 +1,4 @@
+
+INDICATORS = {
+   ...
+}
