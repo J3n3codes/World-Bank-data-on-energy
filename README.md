@@ -21,20 +21,21 @@ Analysis of global electricity access and economic development trends using Worl
 ## Goal 3: Data Engineering
 - [ ] Merge datasets
 - [ ] Create country-year panel
-- [ ] Handle missing values
+- [ ] Inspect missing values
 - [ ] Export cleaned dataset
 
 ## Goal 4: Analysis
-- [ ] Time series analysis (2000–2025)
 - [ ] Calculate indicator changes
+- [ ] Univariable, Bivarible and multivarible analysis- Pooled OLS and Fixed effects.
 - [ ] Identify top 10 countries
 - [ ] Identify bottom 10 countries
 - [ ] Regional comparison
 
 ## Goal 5: Visualization
-- [ ] Time series trends
+
 - [ ] Scatter plots
-- [ ] Choropleth maps
+- [ ] Correlation plots
+- [ ] Interactive map
 - [ ] Summary statistics
 
 ## Goal 6: Reporting
