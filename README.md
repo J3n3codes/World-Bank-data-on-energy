@@ -4,7 +4,7 @@ https://j3n3codes.github.io/World-Bank-data-on-energy/
 
 
 # World-Bank-data-on-energy
-Analysis of global electricity access and economic development trends using World Bank data (2000–2025)
+Analysis of global electricity access and economic development trends using World Bank data (2000–2023)
 # Project Roadmap
 
 ## Goal 1: Project Planning
